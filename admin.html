@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SIMAT Sako SIT Lampung - Dashboard Sistem</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js"></script>
+</head>
+<body class="bg-gray-100 min-h-screen text-gray-800 flex flex-col">
+
+  <!-- Header Navigasi -->
+  <header class="bg-emerald-800 text-white shadow-md sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
+      <div class="flex items-center space-x-3">
+        <div class="w-10 h-10 bg-amber-400 rounded-lg flex items-center justify-center text-emerald-900 font-bold">
+          <i data-lucide="shield"></i>
+        </div>
+        <div>
+          <h1 class="font-bold text-lg leading-tight">SIMAT SAKO SIT LAMPUNG</h1>
+          <p class="text-xs text-emerald-200">Terintegrasi 15 Kabupaten / Kota</p>
+        </div>
+      </div>
+      <div class="flex items-center space-x-3">
+        <span id="roleBadge" class="bg-emerald-900 text-amber-300 px-3 py-1 rounded-full text-xs font-semibold border border-amber-400/30">
+          Super Admin
+        </span>
+        <a href="index.html" class="p-2 bg-emerald-700 hover:bg-emerald-600 rounded-lg text-white text-xs flex items-center gap-1 transition">
+          <i data-lucide="log-out" class="w-4 h-4"></i> Keluar
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Sidebar & Main Content -->
+  <div class="max-w-7xl mx-auto px-4 py-6 flex-1 w-full flex flex-col md:flex-row gap-6">
+    
+    <!-- Left Menu -->
+    <aside class="w-full md:w-64 bg-white rounded-xl shadow-sm p-4 h-fit border border-gray-200 space-y-1">
+      <button onclick="switchTab('dashboard')" class="nav-btn w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-emerald-800 bg-emerald-50">
+        <i data-lucide="layout-dashboard" class="w-4 h-4"></i> Ringkasan Utama
+      </button>
+      <button onclick="switchTab('anggota')" class="nav-btn w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-50">
+        <i data-lucide="users" class="w-4 h-4"></i> Data Anggota & E-KTA
+      </button>
+      <button onclick="switchTab('sku')" class="nav-btn w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-50">
+        <i data-lucide="award" class="w-4 h-4"></i> Verifikasi SKU / SKK
+      </button>
+      <button onclick="switchTab('event')" class="nav-btn w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-50">
+        <i data-lucide="qr-code" class="w-4 h-4"></i> Scanner Event (Kemukoreg)
+      </button>
+      <button onclick="switchTab('keuangan')" class="nav-btn w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-50">
+        <i data-lucide="wallet" class="w-4 h-4"></i> Kas & Iuran Sako
+      </button>
+    </aside>
+
+    <!-- Main View Panel -->
+    <main class="flex-1 space-y-6">
+
+      <!-- TAB: DASHBOARD -->
+      <section id="tab-dashboard" class="tab-content space-y-6">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+          <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-200">
+            <p class="text-xs font-semibold text-gray-500 uppercase">Total Anggota</p>
+            <h3 class="text-2xl font-extrabold text-emerald-800 mt-1">12,450</h3>
+            <span class="text-xs text-emerald-600 font-medium">Se-Provinsi Lampung</span>
+          </div>
+          <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-200">
+            <p class="text-xs font-semibold text-gray-500 uppercase">Jumlah Gudep SIT</p>
+            <h3 class="text-2xl font-extrabold text-amber-600 mt-1">184</h3>
+            <span class="text-xs text-gray-500">SDIT, SMPIT, SMAIT</span>
+          </div>
+          <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-200">
+            <p class="text-xs font-semibold text-gray-500 uppercase">Pramuka Garuda SIT</p>
+            <h3 class="text-2xl font-extrabold text-purple-600 mt-1">320</h3>
+            <span class="text-xs text-purple-600 font-medium">Tercapai Tahun ini</span>
+          </div>
+          <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-200">
+            <p class="text-xs font-semibold text-gray-500 uppercase">Saldo Kas Sako</p>
+            <h3 class="text-2xl font-extrabold text-blue-600 mt-1">Rp 48.5 M</h3>
+            <span class="text-xs text-emerald-600 font-medium">Real-time update</span>
+          </div>
+        </div>
+
+        <div class="bg-white p-5 rounded-xl shadow-sm border border-gray-200">
+          <h2 class="font-bold text-gray-800 text-base mb-4 flex items-center gap-2">
+            <i data-lucide="map-pin" class="w-5 h-5 text-emerald-700"></i> Sebaran Anggota per Kabupaten/Kota
+          </h2>
+          <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 text-sm">
+            <div class="p-3 bg-gray-50 rounded-lg border"><b>Bandar Lampung:</b> 2,100</div>
+            <div class="p-3 bg-gray-50 rounded-lg border"><b>Lampung Selatan:</b> 1,450</div>
+            <div class="p-3 bg-gray-50 rounded-lg border"><b>Metro:</b> 1,200</div>
+            <div class="p-3 bg-gray-50 rounded-lg border"><b>Lampung Tengah:</b> 1,150</div>
+            <div class="p-3 bg-gray-50 rounded-lg border"><b>Pringsewu:</b> 980</div>
+            <div class="p-3 bg-gray-50 rounded-lg border"><b>Lampung Utara:</b> 850</div>
+            <div class="p-3 bg-gray-50 rounded-lg border"><b>Tanggamus:</b> 720</div>
+            <div class="p-3 bg-gray-50 rounded-lg border"><b>East Lampung:</b> 910</div>
+            <div class="p-3 bg-gray-50 rounded-lg border"><b>Pesawaran:</b> 650</div>
+            <div class="p-3 bg-gray-50 rounded-lg border"><b>Lainnya (6 Kab):</b> 2,440</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB: ANGGOTA & E-KTA -->
+      <section id="tab-anggota" class="tab-content hidden space-y-6">
+        <div class="bg-white p-5 rounded-xl shadow-sm border border-gray-200 space-y-4">
+          <div class="flex justify-between items-center">
+            <h2 class="font-bold text-gray-800 text-base">Daftar Anggota & Generator E-KTA</h2>
+            <button onclick="alert('Form Tambah Anggota')" class="bg-emerald-700 text-white px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1">
+              <i data-lucide="user-plus" class="w-4 h-4"></i> Tambah Anggota
+            </button>
+          </div>
+          
+          <table class="w-full text-left text-sm border-collapse">
+            <thead>
+              <tr class="bg-gray-100 border-b text-xs text-gray-600 uppercase">
+                <th class="p-3">NTA</th>
+                <th class="p-3">Nama Lengkap</th>
+                <th class="p-3">Tingkatan</th>
+                <th class="p-3">Gudep / Sekolah</th>
+                <th class="p-3">Aksi</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y text-xs">
+              <tr>
+                <td class="p-3 font-mono font-semibold text-emerald-800">18.01.001.24.0001</td>
+                <td class="p-3 font-semibold">Ahmad Fauzi</td>
+                <td class="p-3"><span class="bg-amber-100 text-amber-800 px-2 py-0.5 rounded">Penggalang</span></td>
+                <td class="p-3">SDIT Permata Hati BDL</td>
+                <td class="p-3">
+                  <button onclick="generateKTA('Ahmad Fauzi', '18.01.001.24.0001', 'Penggalang', 'SDIT Permata Hati')" class="bg-emerald-100 text-emerald-800 px-2.5 py-1 rounded font-semibold hover:bg-emerald-200">
+                    Cetak E-KTA
+                  </button>
+                </td>
+              </tr>
+              <tr>
+                <td class="p-3 font-mono font-semibold text-emerald-800">18.02.004.24.0045</td>
+                <td class="p-3 font-semibold">Siti Aisyah</td>
+                <td class="p-3"><span class="bg-yellow-100 text-yellow-800 px-2 py-0.5 rounded">Siaga</span></td>
+                <td class="p-3">SDIT Bustanul Ulum Metro</td>
+                <td class="p-3">
+                  <button onclick="generateKTA('Siti Aisyah', '18.02.004.24.0045', 'Siaga', 'SDIT Bustanul Ulum')" class="bg-emerald-100 text-emerald-800 px-2.5 py-1 rounded font-semibold hover:bg-emerald-200">
+                    Cetak E-KTA
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Preview KTA Card -->
+        <div id="ktaPreview" class="hidden bg-white p-6 rounded-xl shadow-md border border-gray-200 max-w-sm mx-auto space-y-4">
+          <div class="bg-gradient-to-r from-emerald-900 to-emerald-700 text-white p-4 rounded-xl shadow relative overflow-hidden">
+            <div class="flex justify-between items-center mb-3">
+              <span class="text-[10px] font-bold tracking-widest text-amber-300">E-KTA SAKO SIT LAMPUNG</span>
+              <i data-lucide="shield" class="w-5 h-5 text-amber-400"></i>
+            </div>
+            <div class="flex gap-3 items-center">
+              <div class="w-14 h-18 bg-gray-200 rounded border border-white flex items-center justify-center text-gray-400 font-bold text-xs">FOTO</div>
+              <div class="text-xs space-y-0.5">
+                <p id="ktaName" class="font-bold text-sm text-white"></p>
+                <p id="ktaNta" class="text-amber-200 font-mono text-[11px]"></p>
+                <p id="ktaLevel" class="text-emerald-100"></p>
+                <p id="ktaGudep" class="text-[10px] opacity-80"></p>
+              </div>
+            </div>
+            <div class="mt-3 pt-2 border-t border-emerald-600/50 flex justify-between items-end">
+              <div id="qrcode" class="bg-white p-1 rounded"></div>
+              <span class="text-[8px] text-emerald-200">Valid Digital Signature</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB: VERIFIKASI SKU -->
+      <section id="tab-sku" class="tab-content hidden space-y-4">
+        <div class="bg-white p-5 rounded-xl shadow-sm border border-gray-200">
+          <h2 class="font-bold text-gray-800 text-base mb-3">Antrean Pengajuan SKU / SKK Anggota</h2>
+          <div class="border rounded-lg p-3 flex justify-between items-center bg-gray-50">
+            <div>
+              <p class="font-bold text-sm">Ahmad Fauzi (Penggalang Ramu)</p>
+              <p class="text-xs text-gray-500">Poin SKU No. 12 - Menjelaskan Sejarah Sandi Pramuka</p>
+            </div>
+            <div class="flex gap-2">
+              <button onclick="alert('Poin Disetujui!')" class="bg-emerald-600 text-white px-3 py-1 rounded text-xs font-semibold">Setujui</button>
+              <button onclick="alert('Ditolak!')" class="bg-red-500 text-white px-3 py-1 rounded text-xs font-semibold">Tolak</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB: EVENT SCANNER -->
+      <section id="tab-event" class="tab-content hidden space-y-4">
+        <div class="bg-white p-5 rounded-xl shadow-sm border border-gray-200 text-center space-y-3">
+          <h2 class="font-bold text-gray-800 text-base">Presensi QR Kemukoreg XI Lampung</h2>
+          <div class="w-48 h-48 mx-auto border-2 border-dashed border-emerald-600 rounded-xl flex items-center justify-center bg-emerald-50">
+            <i data-lucide="camera" class="w-10 h-10 text-emerald-600"></i>
+          </div>
+          <button onclick="alert('Presensi Berhasil: Ahmad Fauzi (Gudep SDIT Permata Hati)')" class="bg-emerald-700 text-white px-4 py-2 rounded-lg text-xs font-bold">
+            Simulasi Scan QR E-KTA
+          </button>
+        </div>
+      </section>
+
+      <!-- TAB: KEUANGAN -->
+      <section id="tab-keuangan" class="tab-content hidden space-y-4">
+        <div class="bg-white p-5 rounded-xl shadow-sm border border-gray-200">
+          <h2 class="font-bold text-gray-800 text-base mb-3">Rekapitulasi Iuran Gudep Se-Lampung</h2>
+          <p class="text-xs text-gray-600">Integrasi Payment Gateway QRIS / Midtrans via Cloud Functions.</p>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <script>
+    lucide.createIcons();
+
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+      document.getElementById('tab-' + tabId).classList.remove('hidden');
+    }
+
+    function generateKTA(name, nta, level, gudep) {
+      document.getElementById('ktaPreview').classList.remove('hidden');
+      document.getElementById('ktaName').innerText = name;
+      document.getElementById('ktaNta').innerText = nta;
+      document.getElementById('ktaLevel').innerText = "Tingkat: " + level;
+      document.getElementById('ktaGudep').innerText = gudep;
+
+      const qrContainer = document.getElementById('qrcode');
+      qrContainer.innerHTML = '';
+      const typeNumber = 4;
+      const errorCorrectionLevel = 'L';
+      const qr = qrcode(typeNumber, errorCorrectionLevel);
+      qr.addData(nta);
+      qr.make();
+      qrContainer.innerHTML = qr.createImgTag(3);
+    }
+
+    const savedRole = localStorage.getItem('simat_user_role');
+    if (savedRole) {
+      document.getElementById('roleBadge').innerText = savedRole.replace('_', ' ').toUpperCase();
+    }
+  </script>
+</body>
+</html>
